@@ -155,6 +155,7 @@ namespace Shapes
         {
             int prime = 19;
             int hash = 1;
+
             hash = prime * hash + x1.GetHashCode();
             hash = prime * hash + y1.GetHashCode();
 

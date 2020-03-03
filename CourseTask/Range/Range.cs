@@ -1,16 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Range
 {
     class Range
     {
-        public double From { get; set; }
+        public double From
+        {
+            get;
+            set;
+        }
 
-        public double To { get; set; }
+        public double To
+        {
+            get;
+            set;
+        }
 
         public Range(double from, double to)
         {
@@ -28,89 +33,84 @@ namespace Range
             return number >= From && number <= To;
         }
 
-        public static Range Intersection(Range firstRange, Range secondRange)
+        public override string ToString()
         {
-            double[] doubleArray = { firstRange.From, firstRange.To, secondRange.From, secondRange.To };
-            Array.Sort(doubleArray);
+            StringBuilder builder = new StringBuilder();
+            builder.AppendFormat("({0};{1})", From, To);
 
-            double point = (doubleArray[1] + doubleArray[2]) / 2;
-
-            if (firstRange.IsInside(point))
-            {
-                return new Range(doubleArray[1], doubleArray[2]);
-            }
-
-            return null;
+            return builder.ToString();
         }
 
-        public static Range[] Union(Range firstRange, Range secondRange)
+
+        public Range Intersect(Range range2)
         {
-            Range[] unionRange;
+            double epsilon = 10e-6; ; 
+            double resultFrom = Math.Max(From, range2.From);
+            double resultTo = Math.Min(To, range2.To);
 
-            double[] doubleArray = { firstRange.From, firstRange.To, secondRange.From, secondRange.To };
-            Array.Sort(doubleArray);
-
-            double point = (doubleArray[1] + doubleArray[2]) / 2;
-
-            if (firstRange.IsInside(point))
-            {
-                unionRange = new Range[1];
-                unionRange[0] = new Range(doubleArray[0], doubleArray[3]);
-
-            }
-            else
-            {
-                unionRange = new Range[2];
-                unionRange[0] = new Range(doubleArray[0], doubleArray[1]);
-                unionRange[1] = new Range(doubleArray[2], doubleArray[3]);
-            }
-
-            return unionRange;
-        }
-
-        public static Range[] Difference(Range firstRange, Range secondRange)
-        {
-            Range[] differenceRange;
-
-            double[] doubleArray = { firstRange.From, firstRange.To, secondRange.From, secondRange.To };
-            Array.Sort(doubleArray);
-
-            double point = (doubleArray[1] + doubleArray[2]) / 2;
-
-            if (!firstRange.IsInside(point))
-            {
-                differenceRange = new Range[1];
-                differenceRange[0] = new Range(firstRange.From, firstRange.To);
-
-                return differenceRange;
-            }
-
-            if (firstRange.From == doubleArray[0] && firstRange.To == doubleArray[3])
-            {
-                differenceRange = new Range[2];
-                differenceRange[0] = new Range(firstRange.From, secondRange.From);
-                differenceRange[1] = new Range(secondRange.To, firstRange.To);
-
-                return differenceRange;
-            }
-
-            if (secondRange.From == doubleArray[0] && secondRange.To == doubleArray[3])
+            if (resultFrom > resultTo || Math.Abs(resultFrom - resultTo) < epsilon)
             {
                 return null;
             }
 
-            if (firstRange.From == doubleArray[0])
+            return new Range(resultFrom, resultTo);
+        }
+
+        public Range[] Unite(Range range2)
+        {
+            if (From < range2.From && To < range2.From)
             {
-                differenceRange = new Range[1];
-                differenceRange[0] = new Range(firstRange.From, secondRange.From);
-            }
-            else
-            {
-                differenceRange = new Range[1];
-                differenceRange[0] = new Range(secondRange.To, firstRange.To);
+                return new Range[] { new Range(From, To), new Range(range2.From, range2.To) };
             }
 
-            return differenceRange;
+            if (range2.From < From && range2.To < From)
+            {
+                return new Range[] { new Range(range2.From, range2.To), new Range(From, To) };
+            }
+                
+            double resultFrom = Math.Min(From, range2.From); 
+            double resultTo = Math.Max(To, range2.To);
+
+            return new Range[] { new Range(resultFrom, resultTo) };
+        }
+
+        public Range[] Substract(Range range2)
+        {
+            double epsilon = 0.00001; 
+
+            Range intersection = Intersect(range2); 
+
+            if (intersection == null)
+            {
+                return new Range[] { new Range(From, To) };
+            }
+
+            if (Math.Abs(intersection.From - range2.From) < epsilon && Math.Abs(intersection.To - range2.To) < epsilon) 
+            {
+                if (Math.Abs(From - range2.From) < epsilon) 
+                {
+                    return new Range[] { new Range(range2.To, To) };
+                }
+
+                if (Math.Abs(To - range2.To) < epsilon)
+                {
+                    return new Range[] { new Range(From, range2.From) };
+                }
+
+                return new Range[] { new Range(From, range2.From), new Range(range2.To, To) };
+            }
+
+            if (Math.Abs(intersection.From - From) < epsilon && Math.Abs(intersection.To - To) < epsilon)
+            {
+                return new Range[] { };
+            }
+
+            if (Math.Abs(intersection.From - range2.From) < epsilon)
+            {
+                return new Range[] { new Range(From, range2.From) };
+            }
+
+            return new Range[] { new Range(range2.To, To) };
         }
     }
 }

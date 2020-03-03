@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Range
 {
@@ -18,7 +14,7 @@ namespace Range
             Console.Write("Конец диапазона = ");
             double to = Convert.ToDouble(Console.ReadLine());
 
-            Range firstRange = new Range(from, to);
+            Range range1 = new Range(from, to);
 
             Console.WriteLine("Введите два вещественных числа для второго числового диапазона");
 
@@ -28,40 +24,40 @@ namespace Range
             Console.Write("Конец диапазона = ");
             to = Convert.ToDouble(Console.ReadLine());
 
-            Range secondRange = new Range(from, to);
+            Range range2 = new Range(from, to);
 
-            Range intersection = Range.Intersection(firstRange, secondRange);
-            Range[] union = Range.Union(firstRange, secondRange);
-            Range[] difference = Range.Difference(firstRange, secondRange);
+            Range intersection = range1.Intersect(range2);
+            Range[] union = range1.Unite(range2);
+            Range[] difference = range1.Substract(range2);
 
             if (intersection != null)
             {
-                Console.WriteLine("Пересечение первого и второго дипазона: {0} - {1}", intersection.From, intersection.To);
+                Console.WriteLine("Пересечение первого и второго диапазона: {0}", intersection);
             }
             else
             {
-                Console.WriteLine("Пересечение первого и второго дипазона отсутсвует");
+                Console.WriteLine("Пересечение первого и второго диапазона отсутсвует");
             }
 
-            Console.WriteLine("Объединение первого и второго дипазона: {0} - {1}", union[0].From, union[0].To);
+            Console.WriteLine("Объединение первого и второго диапазона: {0}", union[0]);
 
             if (union.Length > 1)
             {
-                Console.WriteLine("                                        {0} - {1}", union[1].From, union[1].To);
+                Console.WriteLine("{0}", union[1]);
             }
 
-            if (difference != null)
+            if (difference.Length > 0)
             {
-                Console.WriteLine("Разность первого и второго дипазона: {0} - {1}", difference[0].From, difference[0].To);
+                Console.WriteLine("Разность первого и второго диапазона: {0}", difference[0]);
 
                 if (difference.Length > 1)
                 {
-                    Console.WriteLine("                                     {0} - {1}", difference[1].From, difference[1].To);
+                    Console.WriteLine("{0}", difference[1]);
                 }
             }
             else
             {
-                Console.WriteLine("разность первого и второго дипазона: нулевая");
+                Console.WriteLine("Разность первого и второго диапазона: нулевая");
             }
 
             Console.ReadKey();
