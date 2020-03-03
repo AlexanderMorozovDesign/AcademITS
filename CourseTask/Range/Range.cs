@@ -76,7 +76,7 @@ namespace Range
 
         public Range[] Substract(Range range2)
         {
-            double epsilon = 0.00001; 
+            double epsilon = 10e-6; 
 
             Range intersection = Intersect(range2); 
 
