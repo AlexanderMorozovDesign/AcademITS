@@ -44,7 +44,7 @@ namespace Range
 
         public Range Intersect(Range range2)
         {
-            double epsilon = 10e-6; ; 
+            double epsilon = 10e-6;
             double resultFrom = Math.Max(From, range2.From);
             double resultTo = Math.Min(To, range2.To);
 
