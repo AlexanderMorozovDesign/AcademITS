@@ -180,7 +180,7 @@ namespace Vector
             return true;   
         }
 
-        public override int GetHashCode()                      
+        public override int GetHashCode()
         {
             int prime = 23;                                 
             int hash = 1;
