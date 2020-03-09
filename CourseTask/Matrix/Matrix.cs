@@ -129,6 +129,7 @@ namespace Matrix
             public double GetLength()               
             {
                 double length = 0;
+
                 for (int i = 0; i < elements.Length; i++)
                 {
                     length += elements[i] * elements[i];
@@ -172,9 +173,12 @@ namespace Matrix
                 
                 for (int i = 0; i < elements.Length; i++)
                 {
-                    if (Math.Abs(elements[i] - v.elements[i]) > epsilon)    
+                    if (Math.Abs(elements[i] - v.elements[i]) > epsilon)
+                    {
                         return false;
+                    }
                 }
+
                 return true;   
             }
 
@@ -310,7 +314,10 @@ namespace Matrix
             public Vector GetRow(int index)
             {
                 if (index >= GetSize(0))
+                {
                     throw new ArgumentException("Количество строк в матрице меньше, чем " + index.ToString());
+                }
+
                 return rows[index];
             }
 
@@ -369,6 +376,7 @@ namespace Matrix
                 {
                     transposedRows[i] = GetColumn(i);         
                 }
+
                 rows = transposedRows;                        
             }
 
