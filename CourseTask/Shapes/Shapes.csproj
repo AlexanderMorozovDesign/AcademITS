@@ -46,8 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparers\AreasComparer.cs" />
+    <Compile Include="Comparers\PerimetersComparer.cs" />
+    <Compile Include="ShapeClasses\Circle.cs" />
+    <Compile Include="IShape.cs" />
+    <Compile Include="ShapeClasses\Rectangle.cs" />
     <Compile Include="Shapes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShapeClasses\Square.cs" />
+    <Compile Include="ShapeClasses\Triangle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
