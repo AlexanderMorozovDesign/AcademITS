@@ -1,21 +1,12 @@
 ﻿using System;
-using System.Text;
 
 namespace Range
 {
     class Range
     {
-        public double From
-        {
-            get;
-            set;
-        }
+        public double From { get; set; }
 
-        public double To
-        {
-            get;
-            set;
-        }
+        public double To { get; set; }
 
         public Range(double from, double to)
         {
@@ -35,20 +26,15 @@ namespace Range
 
         public override string ToString()
         {
-            StringBuilder builder = new StringBuilder();
-            builder.AppendFormat("({0};{1})", From, To);
-
-            return builder.ToString();
+            return string.Format("({0}; {1})", From, To);
         }
 
-
-        public Range Intersect(Range range2)
+        public Range GetIntersection(Range range)
         {
-            double epsilon = 10e-6;
-            double resultFrom = Math.Max(From, range2.From);
-            double resultTo = Math.Min(To, range2.To);
+            double resultFrom = Math.Max(From, range.From);
+            double resultTo = Math.Min(To, range.To);
 
-            if (resultFrom > resultTo || Math.Abs(resultFrom - resultTo) < epsilon)
+            if (resultFrom >= resultTo)
             {
                 return null;
             }
@@ -56,61 +42,56 @@ namespace Range
             return new Range(resultFrom, resultTo);
         }
 
-        public Range[] Unite(Range range2)
+        public Range[] GetUnion(Range range)
         {
-            if (From < range2.From && To < range2.From)
+            if (From < range.From && To < range.From)
             {
-                return new Range[] { new Range(From, To), new Range(range2.From, range2.To) };
+                return new Range[] { new Range(From, To), new Range(range.From, range.To) };
             }
 
-            if (range2.From < From && range2.To < From)
+            if (range.From < From && range.To < From)
             {
-                return new Range[] { new Range(range2.From, range2.To), new Range(From, To) };
+                return new Range[] { new Range(range.From, range.To), new Range(From, To) };
             }
-                
-            double resultFrom = Math.Min(From, range2.From); 
-            double resultTo = Math.Max(To, range2.To);
 
-            return new Range[] { new Range(resultFrom, resultTo) };
+            return new Range[] { new Range(Math.Min(From, range.From), Math.Max(To, range.To)) };
         }
 
-        public Range[] Substract(Range range2)
+        public Range[] GetDifference(Range range)
         {
-            double epsilon = 10e-6; 
-
-            Range intersection = Intersect(range2); 
+            Range intersection = GetIntersection(range);
 
             if (intersection == null)
             {
                 return new Range[] { new Range(From, To) };
             }
 
-            if (Math.Abs(intersection.From - range2.From) < epsilon && Math.Abs(intersection.To - range2.To) < epsilon) 
-            {
-                if (Math.Abs(From - range2.From) < epsilon) 
-                {
-                    return new Range[] { new Range(range2.To, To) };
-                }
-
-                if (Math.Abs(To - range2.To) < epsilon)
-                {
-                    return new Range[] { new Range(From, range2.From) };
-                }
-
-                return new Range[] { new Range(From, range2.From), new Range(range2.To, To) };
-            }
-
-            if (Math.Abs(intersection.From - From) < epsilon && Math.Abs(intersection.To - To) < epsilon)
+            if (intersection.From == From && intersection.To == To)
             {
                 return new Range[] { };
             }
 
-            if (Math.Abs(intersection.From - range2.From) < epsilon)
+            if (intersection.From == range.From && intersection.To == range.To)
             {
-                return new Range[] { new Range(From, range2.From) };
+                if (From == range.From)
+                {
+                    return new Range[] { new Range(range.To, To) };
+                }
+
+                if (To == range.To)
+                {
+                    return new Range[] { new Range(From, range.From) };
+                }
+
+                return new Range[] { new Range(From, range.From), new Range(range.To, To) };
             }
 
-            return new Range[] { new Range(range2.To, To) };
+            if (intersection.From == range.From)
+            {
+                return new Range[] { new Range(From, range.From) };
+            }
+
+            return new Range[] { new Range(range.To, To) };
         }
     }
 }

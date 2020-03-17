@@ -26,9 +26,9 @@ namespace Range
 
             Range range2 = new Range(from, to);
 
-            Range intersection = range1.Intersect(range2);
-            Range[] union = range1.Unite(range2);
-            Range[] difference = range1.Substract(range2);
+            Range intersection = range1.GetIntersection(range2);
+            Range[] union = range1.GetUnion(range2);
+            Range[] difference = range1.GetDifference(range2);
 
             if (intersection != null)
             {
@@ -43,7 +43,7 @@ namespace Range
 
             if (union.Length > 1)
             {
-                Console.WriteLine(" {0}", union[1]);
+                Console.WriteLine("{0} ", union[1]);
             }
 
             if (difference.Length > 0)
@@ -52,12 +52,12 @@ namespace Range
 
                 if (difference.Length > 1)
                 {
-                    Console.WriteLine(" {0}", difference[1]);
+                    Console.WriteLine("{0}", difference[1]);
                 }
             }
             else
             {
-                Console.WriteLine("Разность первого и второго диапазона: нулевая");
+                Console.WriteLine("разность первого и второго диапазона: нулевая");
             }
 
             Console.ReadKey();
