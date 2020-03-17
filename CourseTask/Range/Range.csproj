@@ -46,7 +46,7 @@
     <None Include="RangeProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Range.cs" />
-    <Compile Include="RangeNew.cs" />
+    <Compile Include="Range2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

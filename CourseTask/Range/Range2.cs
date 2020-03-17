@@ -2,7 +2,7 @@
 
 namespace Range
 {
-    class RangeNew
+    class Range2
     {
         static void Main(string[] args)
         {
