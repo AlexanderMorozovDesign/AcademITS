@@ -43,7 +43,7 @@ namespace Range
 
             if (union.Length > 1)
             {
-                Console.WriteLine("{0} ", union[1]);
+                Console.WriteLine("{0}", union[1]);
             }
 
             if (difference.Length > 0)

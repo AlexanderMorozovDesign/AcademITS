@@ -59,19 +59,17 @@ namespace Range
 
         public Range[] GetDifference(Range range)
         {
-            Range intersection = GetIntersection(range);
-
-            if (intersection == null)
+            if (To < range.From || range.To < From)
             {
                 return new Range[] { new Range(From, To) };
             }
 
-            if (intersection.From == From && intersection.To == To)
+            if (range.From == From && range.To == To)
             {
                 return new Range[] { };
             }
 
-            if (intersection.From == range.From && intersection.To == range.To)
+            if (From <= range.From && To >= range.To)
             {
                 if (From == range.From)
                 {
@@ -86,10 +84,10 @@ namespace Range
                 return new Range[] { new Range(From, range.From), new Range(range.To, To) };
             }
 
-            if (intersection.From == range.From)
+            if (range.From > From)
             {
                 return new Range[] { new Range(From, range.From) };
-            }
+            }    
 
             return new Range[] { new Range(range.To, To) };
         }
