@@ -12,7 +12,7 @@ namespace Shapes.ShapeClasses
         private readonly double x3;
         private readonly double y3;
 
-        private double GetSideLength(double x1, double y1, double x2, double y2)
+        private static double GetSideLength(double x1, double y1, double x2, double y2)
         {
             return Math.Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
         }
@@ -45,10 +45,9 @@ namespace Shapes.ShapeClasses
             double b = GetSideLength(x1, y1, x3, y3); 
             double c = GetSideLength(x2, y2, x3, y3); 
 
-            double p = (a + b + c) / 2;
-            double s = Math.Sqrt(p * (p - a) * (p - b) * (p - c));
+            double halfPerimeter = (a + b + c) / 2;
 
-            return s;
+            return Math.Sqrt(halfPerimeter * (halfPerimeter - a) * (halfPerimeter - b) * (halfPerimeter - c)); ;
         }
 
         public double GetPerimeter()
@@ -57,9 +56,7 @@ namespace Shapes.ShapeClasses
             double b = GetSideLength(x1, y1, x3, y3); 
             double c = GetSideLength(x2, y2, x3, y3); 
 
-            double perimeter = a + b + c;
-
-            return perimeter;
+            return a + b + c;
         }
 
         public override string ToString()
@@ -71,7 +68,7 @@ namespace Shapes.ShapeClasses
         }
 
         public override bool Equals(object o)
-        {           
+        {
             if (ReferenceEquals(o, this))
             {
                 return true;
@@ -91,7 +88,6 @@ namespace Shapes.ShapeClasses
         {
             int prime = 19;
             int hash = 1;
-
             hash = prime * hash + x1.GetHashCode();
             hash = prime * hash + y1.GetHashCode();
 

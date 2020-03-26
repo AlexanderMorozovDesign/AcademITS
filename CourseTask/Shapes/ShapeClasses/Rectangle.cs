@@ -47,7 +47,7 @@
             {
                 return false;
             }
-          
+           
             Rectangle r = (Rectangle)o;
 
             return (width == r.width && height == r.height);

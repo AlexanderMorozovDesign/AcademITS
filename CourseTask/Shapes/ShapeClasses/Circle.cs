@@ -47,7 +47,7 @@ namespace Shapes.ShapeClasses
             {
                 return false;
             }
-          
+           
             Circle c = (Circle)o;
 
             return radius == c.radius;

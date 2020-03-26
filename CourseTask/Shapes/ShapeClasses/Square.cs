@@ -45,7 +45,7 @@
             {
                 return false;
             }
-         
+           
             Square s = (Square)o;
 
             return sideLength == s.sideLength;

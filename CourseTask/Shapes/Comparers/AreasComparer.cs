@@ -6,17 +6,7 @@ namespace Shapes.Comparers
     {
         public int Compare(IShape s1, IShape s2)
         {
-            if (s1.GetArea().CompareTo(s2.GetArea()) < 0)
-            {
-                return 1;
-            }
-
-            if (s1.GetArea().CompareTo(s2.GetArea()) > 0)
-            {
-                return -1;
-            }
-
-            return 0;
+            return s1.GetArea().CompareTo(s2.GetArea());
         }
     }
 }
