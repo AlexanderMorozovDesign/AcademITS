@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matrix", "Matrix\Matrix.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "List", "List\List.csproj", "{D37B6817-3A3F-4F5B-A9A9-5D6FED7CD9B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSV", "CSV\CSV.csproj", "{59A44A23-5542-4F0B-9240-54222CBFA2D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D37B6817-3A3F-4F5B-A9A9-5D6FED7CD9B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D37B6817-3A3F-4F5B-A9A9-5D6FED7CD9B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D37B6817-3A3F-4F5B-A9A9-5D6FED7CD9B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59A44A23-5542-4F0B-9240-54222CBFA2D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59A44A23-5542-4F0B-9240-54222CBFA2D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59A44A23-5542-4F0B-9240-54222CBFA2D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59A44A23-5542-4F0B-9240-54222CBFA2D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
