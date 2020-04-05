@@ -19,6 +19,7 @@ namespace CSV
                 {
                     writer.Write("</td>");
                 }
+
                 writer.WriteLine("<tr>");
                 writer.Write("<td>");
                 newCell = true;

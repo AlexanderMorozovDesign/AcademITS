@@ -59,37 +59,66 @@ namespace Range
 
         public Range[] GetDifference(Range range)
         {
-            if (To < range.From || range.To < From)
-            {
-                return new Range[] { new Range(From, To) };
-            }
+            double To1 = To;
+            double From1 = From;
 
-            if (range.From == From && range.To == To)
+            if (To1 == range.To && From1 == range.From)
             {
                 return new Range[] { };
             }
-
-            if (From <= range.From && To >= range.To)
+            else
             {
-                if (From == range.From)
+                if (From1 <= range.From)
                 {
-                    return new Range[] { new Range(range.To, To) };
+                    if (From1 == range.From)
+                    {
+                        if (To1 < range.To)
+                        {
+                            return new Range[] { new Range(To1, range.To) };
+                        }
+                        else
+                        {
+                            return new Range[] { new Range(range.To, To1) };
+                        }
+                    }
+                    else
+                    {
+                        if (To1 == range.To)
+                        {
+                            return new Range[] { new Range(From1, range.From) };
+                        }
+                        else
+                        {
+                            if (To1 < range.To)
+                            {
+                                return new Range[] { new Range(From1, range.From), new Range(To1, range.To) };
+                            }
+                            else
+                            {
+                                return new Range[] { new Range(From1, range.From), new Range(range.To, To1) };
+                            }
+                        }
+                    }
                 }
-
-                if (To == range.To)
+                else
                 {
-                    return new Range[] { new Range(From, range.From) };
+                    if (To1 == range.To)
+                    {
+                        return new Range[] { new Range(range.From, From1) };
+                    }
+                    else
+                    {
+                        if (To1 < range.To)
+                        {
+                            return new Range[] { new Range(range.From, From), new Range(To1, range.To) };
+                        }
+                        else
+                        {
+                            return new Range[] { new Range(range.From, From), new Range(range.To, To1) };
+                        }
+                    }
                 }
-
-                return new Range[] { new Range(From, range.From), new Range(range.To, To) };
             }
-
-            if (range.From > From)
-            {
-                return new Range[] { new Range(From, range.From) };
-            }    
-
-            return new Range[] { new Range(range.To, To) };
         }
     }
 }
