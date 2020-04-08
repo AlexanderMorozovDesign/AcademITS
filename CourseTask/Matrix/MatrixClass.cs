@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using VectorN;
+using VectorClass;
 
-namespace Matrix
+namespace MatrixClass
 {
     public class Matrix
     {

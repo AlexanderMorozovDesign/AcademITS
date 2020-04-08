@@ -46,6 +46,7 @@
     <Compile Include="MatrixClass.cs" />
     <Compile Include="MatrixProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VectorClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

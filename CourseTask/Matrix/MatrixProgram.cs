@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
-using MatrixN;
-using VectorN;
+using MatrixClass;
+using VectorClass;
 
 namespace MatrixProgram
 {
