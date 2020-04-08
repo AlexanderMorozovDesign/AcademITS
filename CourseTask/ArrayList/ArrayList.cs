@@ -42,6 +42,7 @@ namespace ArrayList
                 {
                     var temp = head;
                     int i;
+
                     for (i = 0; temp != null; i++, temp = temp.next) ;
                     return i;
                 }
@@ -67,7 +68,9 @@ namespace ArrayList
             {
                 var node = new ListNode(value, null);
                 if (head == null)
+                {
                     head = finish = node;
+                }    
                 else
                 {
                     finish.next = node;
@@ -83,7 +86,9 @@ namespace ArrayList
                     {
                         throw new ArgumentNullException(nameof(value));
                     }
+
                     ListNode currnode = head, prevnode = null;
+
                     while (currnode != null)
                     {
                         if (currnode.value.Equals(value))
@@ -91,6 +96,7 @@ namespace ArrayList
                             if (prevnode != null)
                             {
                                 prevnode.next = currnode.next;
+
                                 if (currnode.next == null)
                                 {
                                     finish = prevnode;
@@ -106,6 +112,7 @@ namespace ArrayList
                             }
 
                         }
+
                         prevnode = currnode;
                         currnode = currnode.next;
                     }
@@ -141,10 +148,12 @@ namespace ArrayList
             public void PrintList(List<T> list)                     
             {
                 for (ListNode r = head; r != null; r = r.next)
+                {
                     Console.Write("{0} ", r.value);
+                }
             }
-
         }
+
         static void Main(string[] args)
         {
             List<string> list = new List<string>();        
