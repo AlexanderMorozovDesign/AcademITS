@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Vector
 {
-    class Vector
+    public class Vector
     {
         private double[] elements;
 
@@ -109,6 +109,7 @@ namespace Vector
             {
                 throw new ArgumentException("Значение аргумента NumberOfElement: " + NumberOfElements + " не может быть меньше или равно 0");
             }
+
             for (int i = 0; i < NumberOfElements; i++)
             {
                 elements[i] += vector.elements[i];
@@ -118,10 +119,12 @@ namespace Vector
         public void Subtract(Vector vector)
         {
             int NumbersOfElements = Math.Min(elements.Length, vector.GetSize());
+
             if (NumbersOfElements <= 0)
             {
                 throw new ArgumentException("Значение аргумента NumbersOfElements: " + NumbersOfElements + " не может быть меньше или равно 0");
             }
+
             for (int i = 0; i < NumbersOfElements; i++)
             {
                 elements[i] -= vector.elements[i];
@@ -144,6 +147,7 @@ namespace Vector
         public double GetLength()
         {
             double length = 0;
+
             foreach (double element in elements)
             {
                 length++;
@@ -157,6 +161,7 @@ namespace Vector
             {
                 throw new ArgumentException("Значение аргумента index: " + index + " не может быть меньше или равно 0");
             }
+
             return elements[index];
         }
 
@@ -166,6 +171,7 @@ namespace Vector
             {
                 throw new ArgumentException("Значение аргумента index: " + index + " не может быть меньше или равно 0");
             }
+
             elements[index] = value;
         }
 
