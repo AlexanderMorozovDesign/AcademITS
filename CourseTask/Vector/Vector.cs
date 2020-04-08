@@ -5,24 +5,29 @@ namespace Vector
 {
     class Vector
     {
-        private double[] elements;  
+        private double[] elements;
 
-        public Vector(int n)
+        public Vector(int NumberOfElements)
         {
-            if (n <= 0)
+            if (NumberOfElements <= 0)
             {
-                throw new ArgumentException("Значение аргумента не может быть меньше или равно 0");
+                throw new ArgumentException("Значение аргумента NumberOfElement: " + NumberOfElements + " не может быть меньше или равно 0");
             }
 
-            elements = new double[n]; 
+            elements = new double[NumberOfElements];
         }
 
-        public Vector(Vector v)    
+        public Vector(Vector v)
         {
-            int n = v.GetSize();       
-            elements = new double[n];   
+            int NumberOfElements = v.GetSize();
+            if (NumberOfElements <= 0)
+            {
+                throw new ArgumentException("Значение аргумента NumberOfElement: " + NumberOfElements + " не может быть меньше или равно 0");
+            }
 
-            for (int i = 0; i < n; i++)
+            elements = new double[NumberOfElements];
+
+            for (int i = 0; i < NumberOfElements; i++)
             {
                 elements[i] = v.elements[i];
             }
@@ -30,27 +35,32 @@ namespace Vector
 
         public Vector(double[] array)
         {
-            int n = array.Length;              
-            elements = new double[n];          
+            int NumberOfElements = array.Length;
+            if (NumberOfElements <= 0)
+            {
+                throw new ArgumentException("Значение аргумента NumberOfElement: " + NumberOfElements + " не может быть меньше или равно 0");
+            }
 
-            for (int i = 0; i < n; i++)
+            elements = new double[NumberOfElements];
+
+            for (int i = 0; i < NumberOfElements; i++)
             {
                 elements[i] = array[i];
             }
         }
 
-        public Vector(int n, double[] array)
+        public Vector(int NumberOfElements, double[] array)
         {
-            if (n <= 0)
+            if (NumberOfElements <= 0)
             {
-                throw new ArgumentException("Значение аргумента не может быть меньше или равно 0");
+                throw new ArgumentException("Значение аргумента NumberOfElement: " + NumberOfElements + " не может быть меньше или равно 0");
             }
 
-            elements = new double[n];              
+            elements = new double[NumberOfElements];
 
-            if (n <= array.Length)
+            if (NumberOfElements <= array.Length)
             {
-                for (int i = 0; i < n; i++)
+                for (int i = 0; i < NumberOfElements; i++)
                 {
                     elements[i] = array[i];
                 }
@@ -62,56 +72,63 @@ namespace Vector
                     elements[i] = array[i];
                 }
 
-                for (int i = array.Length; i < n; i++)
+                for (int i = array.Length; i < NumberOfElements; i++)
                 {
                     elements[i] = 0;
                 }
             }
         }
 
-        public int GetSize()                     
+        public int GetSize()
         {
             return elements.Length;
         }
 
-        public override string ToString()       
+        public override string ToString()
         {
-            StringBuilder builder = new StringBuilder();    
-            builder.Append("{ ");    
-            
+            StringBuilder builder = new StringBuilder();
+            builder.Append("{ ");
+
             for (int i = 0; i < elements.Length; i++)
             {
-                builder.AppendFormat("{0}, ", elements[i].ToString());
+                builder.Append(elements[i]);
+                builder.Append(", ");
             }
 
-            builder.Remove(builder.Length - 2, 1);             
+            builder.Remove(builder.Length - 2, 1);
 
-            builder.Append("}");                              
+            builder.Append("}");
 
-            return builder.ToString();                         
+            return builder.ToString();
         }
 
-        public void Add(Vector v)                    
+        public void Add(Vector vector)
         {
-            int n = Math.Min(elements.Length, v.GetSize());
-
-            for (int i = 0; i < n; i++)
+            int NumberOfElements = Math.Min(elements.Length, vector.GetSize());
+            if (NumberOfElements <= 0)
             {
-                elements[i] += v.elements[i];
+                throw new ArgumentException("Значение аргумента NumberOfElement: " + NumberOfElements + " не может быть меньше или равно 0");
+            }
+            for (int i = 0; i < NumberOfElements; i++)
+            {
+                elements[i] += vector.elements[i];
             }
         }
 
-        public void Subtract(Vector v)                    
+        public void Subtract(Vector vector)
         {
-            int n = Math.Min(elements.Length, v.GetSize());
-
-            for (int i = 0; i < n; i++)
+            int NumbersOfElements = Math.Min(elements.Length, vector.GetSize());
+            if (NumbersOfElements <= 0)
             {
-                elements[i] -= v.elements[i];
+                throw new ArgumentException("Значение аргумента NumbersOfElements: " + NumbersOfElements + " не может быть меньше или равно 0");
+            }
+            for (int i = 0; i < NumbersOfElements; i++)
+            {
+                elements[i] -= vector.elements[i];
             }
         }
 
-        public void Multiply(double number)              
+        public void Multiply(double number)
         {
             for (int i = 0; i < elements.Length; i++)
             {
@@ -119,36 +136,40 @@ namespace Vector
             }
         }
 
-        public void Reverse()                   
+        public void Reverse()
         {
             Multiply(-1);
         }
 
-        public double GetLength()                
+        public double GetLength()
         {
             double length = 0;
-
-            for (int i = 0; i < elements.Length; i++)
+            foreach (double element in elements)
             {
-                length += elements[i] * elements[i];
+                length++;
             }
-
-            length = Math.Sqrt(length);  
-            
             return length;
         }
 
-        public double GetElement(int index)   
+        public double GetElement(int index)
         {
+            if (index < 0)
+            {
+                throw new ArgumentException("Значение аргумента index: " + index + " не может быть меньше или равно 0");
+            }
             return elements[index];
         }
 
-        public void SetElement(int index, double value)   
+        public void SetElement(int index, double value)
         {
+            if (index < 0)
+            {
+                throw new ArgumentException("Значение аргумента index: " + index + " не может быть меньше или равно 0");
+            }
             elements[index] = value;
         }
 
-        public override bool Equals(object obj)                     
+        public override bool Equals(object obj)
         {
             if (ReferenceEquals(obj, this))
             {
@@ -159,132 +180,87 @@ namespace Vector
             {
                 return false;
             }
-        
-            Vector v = (Vector)obj;
 
-            if (elements.Length != v.GetSize())
+            Vector vector = (Vector)obj;
+
+            if (elements.Length != vector.GetSize())
             {
                 return false;
             }
 
-            double epsilon = 10e-6; 
-            
+            double epsilon = 10e-6;
+
             for (int i = 0; i < elements.Length; i++)
             {
-                if (Math.Abs(elements[i] - v.elements[i]) > epsilon)
+                if (Math.Abs(elements[i] - vector.elements[i]) > epsilon)
                 {
                     return false;
                 }
             }
 
-            return true;   
+            return true;
         }
 
         public override int GetHashCode()
         {
-            int prime = 23;                                 
+            int prime = 23;
             int hash = 1;
 
-            for (int i = 0; i < elements.Length; i++)
+            foreach (double element in elements)
             {
-                hash = prime * hash + elements[i].GetHashCode();
+                hash = prime * hash + element.GetHashCode();
             }
 
             return hash;
         }
 
-        public static Vector AddVectors(Vector vector1, Vector vector2)   
+        public static Vector GetSumm(Vector vector1, Vector vector2)
         {
             Vector sum;
 
-            if (vector1.GetSize() > vector2.GetSize())       
+            if (vector1.GetSize() > vector2.GetSize())
             {
-                sum = new Vector(vector1);                 
-                sum.Add(vector2);                         
+                sum = new Vector(vector1);
+                sum.Add(vector2);
                 return sum;
             }
 
-            sum = new Vector(vector2);                   
-            sum.Add(vector1); 
-            
+            sum = new Vector(vector2);
+            sum.Add(vector1);
+
             return sum;
         }
 
-        public static Vector SubtractVectors(Vector vector1, Vector vector2)   
+        public static Vector GetDifference(Vector vector1, Vector vector2)
         {
             Vector result;
 
-            if (vector1.GetSize() > vector2.GetSize())       
+            if (vector1.GetSize() > vector2.GetSize())
             {
-                result = new Vector(vector1);                 
-                result.Subtract(vector2); 
-                
+                result = new Vector(vector1);
+                result.Subtract(vector2);
+
                 return result;
             }
 
-            result = new Vector(vector2);                  
-            result.Subtract(vector1);                        
-            result.Reverse();  
-            
+            result = new Vector(vector2);
+            result.Subtract(vector1);
+            result.Reverse();
+
             return result;
         }
 
-        public static double DotProduct(Vector vector1, Vector vector2)   
+        public static double DotProduct(Vector vector1, Vector vector2)
         {
-            int n = Math.Min(vector1.GetSize(), vector2.GetSize());      
-            double sum = 0;
+            int NumberOfElements = Math.Min(vector1.GetSize(), vector2.GetSize());
+            double result = 0;
 
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < NumberOfElements; i++)
             {
-                sum += vector1.GetElement(i) * vector2.GetElement(i);
+                result += vector1.GetElement(i) * vector2.GetElement(i);
             }
 
-            return sum;
-        }
-    }
-
-    class VectorProgram
-    {
-        static void Main(string[] args)
-        {
-            double[] array = { 1, -2, 3, -4, 5 };
-            Vector vector1 = new Vector(7, array);
-
-            Console.WriteLine("Вектор1 = {0}", vector1);
-            Console.WriteLine("Размерность = {0}", vector1.GetSize());
-            Console.WriteLine("hash = {0}", vector1.GetHashCode());
-            Console.WriteLine("Длина вектора = {0}", vector1.GetLength());
-            Console.WriteLine("\nИзменим третий (индексация с нуля) элемент вектора на 10");
-            vector1.SetElement(3, 10);
-            Console.WriteLine("Вектор стал = {0}", vector1);
-            Console.WriteLine("Пятый (индексация с нуля) элемент вектора = {0}", vector1.GetElement(5));
-
-            Console.Write("\nВведите количество элементов во втором векторе: ");
-            int n = Int32.Parse(Console.ReadLine());
-            Vector vector2 = new Vector(n);
-
-            for (int i = 0; i < n; i++)
-            {
-                Console.Write("Введите {0}-ый элемент вектора: ", i);
-                double value = Double.Parse(Console.ReadLine());
-                vector2.SetElement(i, value);
-            }
-
-            Console.WriteLine("Вектор2 = {0}", vector2);
-            Console.WriteLine("Вектор1 == Вектор2: {0}", vector1.Equals(vector2));
-            vector1.Add(vector2);
-            Console.WriteLine("Вектор1 += Вектор2:  {0}", vector1);
-            vector2.Subtract(vector1);
-            Console.WriteLine("Вектор2 -= Вектор1:  {0}", vector2);
-            vector1.Multiply(3);
-            Console.WriteLine("Умножение Вектора1 на 3:  {0}", vector1);
-
-            Vector vec3 = Vector.AddVectors(vector1, vector2);
-            Console.WriteLine("Статический метод сложения двух векторов (Вектор1 + Вектор2): {0}", Vector.AddVectors(vector1, vector2));
-            Console.WriteLine("Статический метод вычитания двух векторов (Вектор1 - Вектор2): {0}", Vector.SubtractVectors(vector1, vector2));
-            Console.WriteLine("Статический метод получения скалярного произведения двух векторов (Вектор1, Вектор2): {0}", Vector.DotProduct(vector1, vector2));
-
-            Console.ReadLine();
+            return result;
         }
     }
 }
