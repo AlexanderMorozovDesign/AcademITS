@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashTable", "HashTable\Hash
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tree", "Tree\Tree.csproj", "{FB3A4CDE-0C29-4BF8-ABB2-ED1DDDF4BB63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph", "Graph\Graph.csproj", "{41688B47-418B-4A6E-B013-F2053EE495F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{FB3A4CDE-0C29-4BF8-ABB2-ED1DDDF4BB63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB3A4CDE-0C29-4BF8-ABB2-ED1DDDF4BB63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB3A4CDE-0C29-4BF8-ABB2-ED1DDDF4BB63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41688B47-418B-4A6E-B013-F2053EE495F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41688B47-418B-4A6E-B013-F2053EE495F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41688B47-418B-4A6E-B013-F2053EE495F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41688B47-418B-4A6E-B013-F2053EE495F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
