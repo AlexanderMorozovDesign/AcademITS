@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tree", "Tree\Tree.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph", "Graph\Graph.csproj", "{41688B47-418B-4A6E-B013-F2053EE495F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lambda", "Lambda\Lambda.csproj", "{100C8880-A777-4A34-ABA6-6A85C19A4422}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{41688B47-418B-4A6E-B013-F2053EE495F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41688B47-418B-4A6E-B013-F2053EE495F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41688B47-418B-4A6E-B013-F2053EE495F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{100C8880-A777-4A34-ABA6-6A85C19A4422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{100C8880-A777-4A34-ABA6-6A85C19A4422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{100C8880-A777-4A34-ABA6-6A85C19A4422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{100C8880-A777-4A34-ABA6-6A85C19A4422}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
