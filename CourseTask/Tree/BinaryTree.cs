@@ -11,11 +11,13 @@ public class BinaryTree<T> : ICollection<T>
             get;
             set;
         }
+
         public Node<TValue> Left
         {
             get;
             set;
         }
+
         public Node<TValue> Right
         {
             get;
@@ -34,16 +36,19 @@ public class BinaryTree<T> : ICollection<T>
     public BinaryTree() : this(Comparer<T>.Default)
     {
     }
+
     public BinaryTree(IComparer<T> defaultComparer)
     {
         if (defaultComparer == null)
             throw new ArgumentNullException("Default comparer is null");
         comparer = defaultComparer;
     }
+
     public BinaryTree(IEnumerable<T> collection) : this(collection, Comparer<T>.Default)
     {
 
     }
+
     public BinaryTree(IEnumerable<T> collection, IComparer<T> defaultComparer) : this(defaultComparer)
     {
         AddRange(collection);
@@ -103,6 +108,7 @@ public class BinaryTree<T> : ICollection<T>
             }
         }
     }
+
     public IEnumerable<T> Preorder()
     {
         if (root == null)
@@ -121,6 +127,7 @@ public class BinaryTree<T> : ICollection<T>
                 stack.Push(node.Left);
         }
     }
+
     public IEnumerable<T> Postorder()
     {
         if (root == null)
@@ -155,6 +162,7 @@ public class BinaryTree<T> : ICollection<T>
             }
         }
     }
+
     public IEnumerable<T> Levelorder()
     {
         if (root == null)
