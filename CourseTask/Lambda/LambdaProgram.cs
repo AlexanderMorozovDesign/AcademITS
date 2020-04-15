@@ -99,7 +99,7 @@ namespace Lambda
 
             Console.WriteLine("");
 
-            var middlePeople = people.Where(x => x.Age >= 20 && x.Age <= 45).OrderByDescending(y => y.Age).Select(z => z.Name);
+            var middlePeople = people.Where(x => x.Age >= 20 && x.Age <= 45).OrderByDescending(k => k.Age).Select(z => z.Name);
 
             Console.WriteLine("Имена в порядке убывания возраста (от 20 до 45): " + string.Join(", ", middlePeople.ToList()));
 
