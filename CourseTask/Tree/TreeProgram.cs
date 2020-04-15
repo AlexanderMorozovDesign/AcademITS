@@ -30,7 +30,6 @@ namespace Tree
             Console.WriteLine("Обход с рекурсией:");
             Console.WriteLine(string.Join(" ", integerTree.Levelorder()));
 
-
             Console.WriteLine();
             integerTree.PrintTree();
             Console.WriteLine();

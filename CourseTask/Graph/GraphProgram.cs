@@ -12,12 +12,17 @@ namespace Graph
             Random random = new Random();
 
             for (int row = 0; row < verticesCount - 1; row++)
+            {
                 for (int col = row + 1; col < verticesCount; col++)
+                {
                     if (random.Next(3) < 1)
                     {
                         adjacency[row, col] = 1;
                         adjacency[col, row] = 1;
                     }
+                }
+            }    
+
 
             Console.WriteLine("***************************************");
             Console.WriteLine("Обход графа в глубину с печатью вершин.");
