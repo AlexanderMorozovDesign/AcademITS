@@ -1,270 +1,195 @@
-п»їusing System;
+using System;
 using System.Text;
 
-namespace Vector
+namespace VectorNamespace
 {
     public class Vector
     {
-        private double[] elements;
+        private double[] elements;  //массив для хранения элементов вектора
 
-        public Vector(int NumberOfElements)
+        //Конструкторы
+        public Vector(int length)
         {
-            if (NumberOfElements <= 0)
+            if (length <= 0)
             {
-                throw new ArgumentException("Р—РЅР°С‡РµРЅРёРµ Р°СЂРіСѓРјРµРЅС‚Р° NumberOfElement: " + NumberOfElements + " РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ 0");
+                throw new ArgumentException("Значение аргумента: "+length+", оно должно быть больше 0", "length");
             }
 
-            elements = new double[NumberOfElements];
+            elements = new double[length]; //Выделим память под массив элементов вектора
         }
 
-        public Vector(Vector v)
+        public Vector(Vector initialVector)     //конструктор копирования
         {
-            int NumberOfElements = v.GetSize();
-            if (NumberOfElements <= 0)
-            {
-                throw new ArgumentException("Р—РЅР°С‡РµРЅРёРµ Р°СЂРіСѓРјРµРЅС‚Р° NumberOfElement: " + NumberOfElements + " РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ 0");
-            }
+            int length = initialVector.GetSize();       //размерность вектора, который копируется
+            elements = new double[length];   //Выделим память под массив элементов вектора
 
-            elements = new double[NumberOfElements];
-
-            for (int i = 0; i < NumberOfElements; i++)
-            {
-                elements[i] = v.elements[i];
-            }
+            Array.Copy(initialVector.elements, elements, length);
         }
 
         public Vector(double[] array)
         {
-            int NumberOfElements = array.Length;
-            if (NumberOfElements <= 0)
+            int length = array.Length;              //размерность массива, который копируется в вектор
+            if (length == 0)
             {
-                throw new ArgumentException("Р—РЅР°С‡РµРЅРёРµ Р°СЂРіСѓРјРµРЅС‚Р° NumberOfElement: " + NumberOfElements + " РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ 0");
+                throw new ArgumentException("Длина массива для создания вектора: "+length+", невозможно создать с такой размерностью", "array");
             }
 
-            elements = new double[NumberOfElements];
-
-            for (int i = 0; i < NumberOfElements; i++)
-            {
-                elements[i] = array[i];
-            }
+            elements = new double[length];          //Выделим память под массив элементов вектора
+            Array.Copy(array, elements, length);
         }
 
-        public Vector(int NumberOfElements, double[] array)
+        public Vector(int length, double[] array)
         {
-            if (NumberOfElements <= 0)
+            if (length <= 0)
             {
-                throw new ArgumentException("Р—РЅР°С‡РµРЅРёРµ Р°СЂРіСѓРјРµРЅС‚Р° NumberOfElement: " + NumberOfElements + " РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ 0");
+                throw new ArgumentException("Значение аргумента length не может быть меньше или равно 0");
             }
 
-            elements = new double[NumberOfElements];
-
-            if (NumberOfElements <= array.Length)
+            elements = new double[length];              //Выделим память под массив элементов вектора
+            if (length <= array.Length)
             {
-                for (int i = 0; i < NumberOfElements; i++)
-                {
-                    elements[i] = array[i];
-                }
+                Array.Copy(array, elements, length);
             }
             else
             {
-                for (int i = 0; i < array.Length; i++)
-                {
-                    elements[i] = array[i];
-                }
-
-                for (int i = array.Length; i < NumberOfElements; i++)
-                {
-                    elements[i] = 0;
-                }
+                Array.Copy(array, elements, array.Length);
             }
         }
 
-        public int GetSize()
+        public int GetSize()                     //Возвращает размер вектора
         {
             return elements.Length;
         }
 
-        public override string ToString()
+        public override string ToString()       //Переопределение функции ToString, чтобы значения вектора выводились { 1, 2, 3, 4 }
         {
-            StringBuilder builder = new StringBuilder();
-            builder.Append("{ ");
+            StringBuilder builder = new StringBuilder();    //Где будем строить нашу строку
+            builder.Append("{ ");                           //добавление в строку первой { и пробела
+            for (int i = 0; i < elements.Length; i++)           //Добавление в цикле в строку через запятую значений элементов
+                builder.Append(elements[i]+", ");
 
-            for (int i = 0; i < elements.Length; i++)
-            {
-                builder.Append(elements[i]);
-                builder.Append(", ");
-            }
+            builder.Remove(builder.Length - 2, 1);             //удалим последнюю запятую
 
-            builder.Remove(builder.Length - 2, 1);
+            builder.Append("}");                               //добавление в строку закрывающейся скобки
 
-            builder.Append("}");
-
-            return builder.ToString();
+            return builder.ToString();                          //Возврат результата в виде строки
         }
 
-        public void Add(Vector vector)
+        public void Add(Vector vectorToAdd)                    //Прибавление к вектору другого вектора
         {
-            int NumberOfElements = Math.Min(elements.Length, vector.GetSize());
-            if (NumberOfElements <= 0)
-            {
-                throw new ArgumentException("Р—РЅР°С‡РµРЅРёРµ Р°СЂРіСѓРјРµРЅС‚Р° NumberOfElement: " + NumberOfElements + " РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ 0");
-            }
+            int length = Math.Max(elements.Length, vectorToAdd.GetSize());
 
-            for (int i = 0; i < NumberOfElements; i++)
-            {
-                elements[i] += vector.elements[i];
-            }
+            if (length > elements.Length)           //Увеличиваем длину текущего вектора, если это необходимо
+                Array.Resize(ref elements, length);
+
+            for (int i = 0; i < vectorToAdd.GetSize(); i++)   //прибавлям к элементам вектора значения другого вектора
+                elements[i] += vectorToAdd.elements[i];
         }
 
-        public void Subtract(Vector vector)
+        public void Subtract(Vector vectorToSubtract)                    //Вычитание из вектора другого вектора
         {
-            int NumbersOfElements = Math.Min(elements.Length, vector.GetSize());
+            int length = Math.Max(elements.Length, vectorToSubtract.GetSize());
 
-            if (NumbersOfElements <= 0)
-            {
-                throw new ArgumentException("Р—РЅР°С‡РµРЅРёРµ Р°СЂРіСѓРјРµРЅС‚Р° NumbersOfElements: " + NumbersOfElements + " РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ 0");
-            }
+            if (length > elements.Length)           //Увеличиваем длину текущего вектора, если это необходимо
+                Array.Resize(ref elements, length);
 
-            for (int i = 0; i < NumbersOfElements; i++)
-            {
-                elements[i] -= vector.elements[i];
-            }
+            for (int i = 0; i < vectorToSubtract.GetSize(); i++)   //вычитаем из элементов вектора значения другого вектора
+                elements[i] -= vectorToSubtract.elements[i];
         }
 
-        public void Multiply(double number)
+        public void Multiply(double number)              //Умножение вектора на скаляр
         {
-            for (int i = 0; i < elements.Length; i++)
-            {
+            for (int i = 0; i < elements.Length; i++)   //умножаем каждый элементов вектора на переданный скаляр
                 elements[i] *= number;
-            }
         }
 
-        public void Reverse()
+        public void Reverse()                   //Разворот вектора (умножение всех компонент на -1)
         {
             Multiply(-1);
         }
 
-        public double GetLength()
+        public double GetModulus()                //Получение длины вектора (формула: корень из суммы квадратов всех элементов)
         {
-            double length = 0;
-
-            foreach (double element in elements)
-            {
-                length++;
-            }
-            return length;
+            double modulus = 0;
+            foreach (double element in elements)  //накопление суммы квадратов всех элементов вектора
+                modulus += element * element;
+            //вычисление корня из суммы квадратов
+            return Math.Sqrt(modulus); ;
         }
 
-        public double GetElement(int index)
+        public double GetElement(int index)    //Получение компоненты вектора по индексу
         {
-            if (index < 0)
-            {
-                throw new ArgumentException("Р—РЅР°С‡РµРЅРёРµ Р°СЂРіСѓРјРµРЅС‚Р° index: " + index + " РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ 0");
-            }
-
             return elements[index];
         }
 
-        public void SetElement(int index, double value)
+        public void SetElement(int index, double value)    //Установка компоненты вектора по индексу
         {
-            if (index < 0)
-            {
-                throw new ArgumentException("Р—РЅР°С‡РµРЅРёРµ Р°СЂРіСѓРјРµРЅС‚Р° index: " + index + " РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ 0");
-            }
-
             elements[index] = value;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object obj)                      //Переопределение функци Equals
         {
+            // проверили что передали сам объект
             if (ReferenceEquals(obj, this))
             {
                 return true;
             }
 
-            if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
+            // отсеяли null и объекты других классов
+            if (ReferenceEquals(obj, null) || obj.GetType() != GetType())
             {
                 return false;
             }
 
-            Vector vector = (Vector)obj;
+            // привели объект к Vector            
+            Vector otherVector = (Vector)obj;
 
-            if (elements.Length != vector.GetSize())
-            {
+            // проверили равенство размерностей
+            if (elements.Length != otherVector.GetSize())
                 return false;
-            }
 
-            double epsilon = 10e-6;
-
+            //Сравним поэлементно компоненты векторов
             for (int i = 0; i < elements.Length; i++)
             {
-                if (Math.Abs(elements[i] - vector.elements[i]) > epsilon)
-                {
+                if (elements[i] != otherVector.elements[i])    //Если элементы не равны, выйдем и вернем false
                     return false;
-                }
             }
-
-            return true;
+            return true;   //До этого места можем дойти только, если вектора равны
         }
 
-        public override int GetHashCode()
+        public override int GetHashCode()                      //Переопределение функци GetHashCode
         {
-            int prime = 23;
+            int prime = 23;                                    //Выбираем простое число
             int hash = 1;
-
-            foreach (double element in elements)
-            {
-                hash = prime * hash + element.GetHashCode();
-            }
+            foreach (double elemnt in elements)                 //в цикле по алгоритму из лекции вычисляем hash
+                hash = prime * hash + elemnt.GetHashCode();
 
             return hash;
         }
 
-        public static Vector GetSumm(Vector vector1, Vector vector2)
+        public static Vector GetSum(Vector vector1, Vector vector2)   //Статический метод сложения двух векторов
         {
-            Vector sum;
+            Vector result = new Vector(vector1);                 //Скопируем все элементы первого вектора в вектор sum
 
-            if (vector1.GetSize() > vector2.GetSize())
-            {
-                sum = new Vector(vector1);
-                sum.Add(vector2);
-                return sum;
-            }
-
-            sum = new Vector(vector2);
-            sum.Add(vector1);
-
-            return sum;
-        }
-
-        public static Vector GetDifference(Vector vector1, Vector vector2)
-        {
-            Vector result;
-
-            if (vector1.GetSize() > vector2.GetSize())
-            {
-                result = new Vector(vector1);
-                result.Subtract(vector2);
-
-                return result;
-            }
-
-            result = new Vector(vector2);
-            result.Subtract(vector1);
-            result.Reverse();
-
+            result = new Vector(vector1);                 //Скопируем все элементы первого вектора в вектор sum
+            result.Add(vector2);                          //Прибавим к вектору sum второй вектор
             return result;
         }
 
-        public static double DotProduct(Vector vector1, Vector vector2)
+        public static Vector GetSubtract(Vector vector1, Vector vector2)   //Статический метод вычитания двух векторов
         {
-            int NumberOfElements = Math.Min(vector1.GetSize(), vector2.GetSize());
+            Vector result = new Vector(vector1);                 //Скопируем все элементы первого вектора в вектор result;
+            result.Subtract(vector2);                     //Вычтем из вектора result второй вектор, если размерность vector2 больше, то vector1 увеличится
+            return result;
+        }
+
+        public static double DotProduct(Vector vector1, Vector vector2)   //Статический метод вычисления скалярного произведения двух векторв
+        {
+            int length = Math.Min(vector1.GetSize(), vector2.GetSize());       //количество слагаемых в скалярном произведение - размерность самого маленького вектора, т.к. недостающие элементы нули
             double result = 0;
 
-            for (int i = 0; i < NumberOfElements; i++)
-            {
+            for (int i = 0; i < length; i++)                                  //накопление суммы из произведений элементов двух векторов с одинаковыми индексами
                 result += vector1.GetElement(i) * vector2.GetElement(i);
-            }
 
             return result;
         }
